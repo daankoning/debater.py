@@ -1,4 +1,5 @@
-"""A collection of simple classes that store information. This is mostly a pythonic, class-based wrapper around DebaterJSON."""
+"""A collection of simple classes that store information. This is mostly a pythonic, class-based wrapper around
+DebaterJSON."""
 from __future__ import annotations
 import json
 from typing import Optional
@@ -7,7 +8,8 @@ from dataclasses import dataclass
 
 
 class Item:
-	"""A single item that is being stored, mostly used so that some default behaviour doesn't need to be repeated as much."""
+	"""A single item that is being stored, mostly used so that some default behaviour doesn't need to be repeated as
+	much."""
 	def __iter__(self):  # just using this as a workaround to make json serialization easier
 		def is_valid(key):
 			return not callable(self.__getattribute__(key)) \
@@ -86,7 +88,8 @@ class Round(Item):
 	outround: Optional[bool] = None
 	"""If this round was an outround."""
 	outround_category: Optional[str] = None
-	"""What speaker category this outround belongs to (e.g. open or ESL). Should only be used if the round is an outround."""
+	"""What speaker category this outround belongs to (e.g. open or ESL). Should only be used if the round is an 
+	outround."""
 	prepped: Optional[bool] = None
 	"""Whether the round was a prepped round (if applicable)."""
 	date: Optional[datetime] = None
@@ -106,7 +109,9 @@ class Round(Item):
 	speeches: Optional[list[Speech]] = None
 	"""The speeches the speaker gave in this round."""
 	result: Optional[int] = None
-	"""How many points the debater's team got from this round. In two-team formats, a 1 or 0 simply mean a win or loss, respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a certain result yields."""
+	"""How many points the debater's team got from this round. In two-team formats, a 1 or 0 simply mean a win or loss,
+	 respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a 
+	 certain result yields."""
 
 	@classmethod
 	def from_dict(cls, data: dict) -> Round:
@@ -136,7 +141,8 @@ class Round(Item):
 class Speech(Item):
 	"""A speech in a round."""
 	number: Optional[int] = None
-	"""The number of this speech. Only counts speeches on the debater's side (e.g. in BP an opposition whip would be speech 4, not 8)."""
+	"""The number of this speech. Only counts speeches on the debater's side (e.g. in BP an opposition whip would be
+	 speech 4, not 8)."""
 	speak: Optional[float] = None
 	"""The speak this speech received."""
 

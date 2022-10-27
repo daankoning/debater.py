@@ -1,6 +1,8 @@
 """Various utilities to aid in the manipulation and analysis of the objects in `debaterpy.structures`."""
 from .structures import *
 from typing import Generator, Callable
+import io
+import csv
 
 
 def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool] = lambda x, y: True)\
@@ -22,3 +24,33 @@ def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool]
 		for round in tournament.rounds:
 			if function(tournament, round):
 				yield round
+
+
+def generate_csv(record: Record, target: io.TextIOWrapper):
+	"""Writes a CSV representation of `record` to `target`."""
+	writer = csv.writer(target, delimiter=",")
+	writer.writerow(["tournament_name", "format", "broke", "break_categories", "round_name", "outround",
+					 "outround_category", "prepped", "date", "topics", "motion", "infoslide", "side", "half",
+					 "teammates", "speech", "speak"])
+	for tournament in record.tournaments:
+		for round in tournament.rounds:
+			for speech in round.speeches:
+				writer.writerow(map(str, [
+					tournament.tournament_name,
+					tournament.format,
+					tournament.broke,
+					tournament.break_categories,
+					round.round_name,
+					round.outround,
+					round.outround_category,
+					round.prepped,
+					round.date.isoformat(),
+					round.topics,
+					round.motion,
+					round.infoslide,
+					round.side,
+					round.half,
+					round.teammates,
+					speech.number,
+					speech.speak
+				]))

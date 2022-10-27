@@ -13,6 +13,10 @@ class Item:
 		"""Instantiates a new object based on the data contained in the json string `data`."""
 		return cls.from_dict(json.loads(data))
 
+	def from_dict(self, data: dict) -> Item:
+		"""instantiate a new object based on the dictrionary `data`."""
+		pass
+
 
 @dataclass(unsafe_hash=True)
 class Record(Item):

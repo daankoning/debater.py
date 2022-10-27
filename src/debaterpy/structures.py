@@ -2,21 +2,40 @@
 from __future__ import annotations
 import json
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, date
 from dataclasses import dataclass
 
 
 class Item:
 	"""A single item that is being stored, mostly used so that some default behaviour doesn't need to be repeated as much."""
+	def __iter__(self):  # just using this as a workaround to make json serialization easier
+		def is_valid(key):
+			return not callable(self.__getattribute__(key)) \
+				   and self.__getattribute__(key) is not None \
+				   and key[:2] != "__"
+
+		for key in filter(is_valid, dir(self)):
+			value = self.__getattribute__(key)
+			if isinstance(value, list) and len(value) > 0 and isinstance(value[0], Item):
+				value = [dict(sub_value) for sub_value in value]
+			elif isinstance(value, date):
+				value = value.isoformat()
+
+			yield key, value
+
+	def to_json(self) -> str:
+		"""Converts the object to a DebaterJSON string."""
+		return json.dumps(dict(self))
+
 	@classmethod
 	def from_json(cls, data: str) -> Item:
 		"""Instantiates a new object based on the data contained in the json string `data`."""
 		return cls.from_dict(json.loads(data))
 
+	@classmethod
 	def from_dict(self, data: dict) -> Item:
-		"""instantiate a new object based on the dictrionary `data`."""
+		"""instantiate a new object based on the dictionary `data`. """
 		pass
-
 
 @dataclass(unsafe_hash=True)
 class Record(Item):

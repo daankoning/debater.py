@@ -6,17 +6,21 @@ from datetime import datetime
 from dataclasses import dataclass
 
 
+class Item:
+	"""A single item that is being stored, mostly used so that some default behaviour doesn't need to be repeated as much."""
+	@classmethod
+	def from_json(cls, data: str) -> Item:
+		"""Instantiates a new object based on the data contained in the json string `data`."""
+		return cls.from_dict(json.loads(data))
+
+
 @dataclass(unsafe_hash=True)
-class Record:
+class Record(Item):
 	"""The base class for one entire account of tournaments."""
 	tournaments: list[Tournament]
 	"""The tournaments to include in this account"""
 	speaker_name: Optional[str] = None
 	"""The name of the speaker in this account."""
-
-	@classmethod
-	def from_json(cls, data: str) -> Record:
-		return cls.from_dict(json.loads(data))
 
 	@classmethod
 	def from_dict(cls, data: dict) -> Record:
@@ -27,7 +31,7 @@ class Record:
 
 
 @dataclass(unsafe_hash=True)
-class Tournament:
+class Tournament(Item):
 	"""A single tournament's data. This is the primary object you will interact with the majority of the time."""
 	tournament_name: str
 	"""The name of the tournament."""
@@ -41,10 +45,6 @@ class Tournament:
 	"""All the rounds the debater participated in in this tournament."""
 
 	@classmethod
-	def from_json(cls, data: str) -> Tournament:
-		return cls.from_dict(json.loads(data))
-
-	@classmethod
 	def from_dict(cls, data: dict) -> Tournament:
 		return cls(
 			tournament_name=data["tournament_name"],
@@ -56,7 +56,7 @@ class Tournament:
 
 
 @dataclass(unsafe_hash=True)
-class Round:
+class Round(Item):
 	"""A single round that is associated with a tournament."""
 	round_name: Optional[str] = None
 	"""The name of the round (e.g. 'round 1' or 'grand finals')."""
@@ -86,10 +86,6 @@ class Round:
 	"""How many points the debater's team got from this round. In two-team formats, a 1 or 0 simply mean a win or loss, respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a certain result yields."""
 
 	@classmethod
-	def from_json(cls, data: str) -> Round:
-		return cls.from_dict(json.loads(data))
-
-	@classmethod
 	def from_dict(cls, data: dict) -> Round:
 		if "speech" in data.keys() or "speak" in data.keys():  # neccesary due to these attributes' deprecation
 			speeches = [Speech(data.get("speech"), data.get("speak"))]
@@ -114,16 +110,12 @@ class Round:
 
 
 @dataclass(unsafe_hash=True)
-class Speech:
+class Speech(Item):
 	"""A speech in a round."""
 	number: Optional[int] = None
 	"""The number of this speech. Only counts speeches on the debater's side (e.g. in BP an opposition whip would be speech 4, not 8)."""
 	speak: Optional[float] = None
 	"""The speak this speech received."""
-
-	@classmethod
-	def from_json(cls, data: str) -> Speech:
-		return cls.from_dict(json.loads(data))
 
 	@classmethod
 	def from_dict(cls, data: dict) -> Speech:

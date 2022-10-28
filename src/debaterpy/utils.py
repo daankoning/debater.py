@@ -44,7 +44,7 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
 					round.outround,
 					round.outround_category,
 					round.prepped,
-					round.date.isoformat(),
+					str(round.date.timestamp()),
 					round.topics,
 					round.motion,
 					round.infoslide,

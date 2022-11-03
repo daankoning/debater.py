@@ -37,7 +37,8 @@ class Item:
 	@classmethod
 	def from_dict(self, data: dict) -> Item:
 		"""instantiate a new object based on the dictionary `data`. """
-		pass
+		raise NotImplementedError
+
 
 @dataclass(unsafe_hash=True)
 class Record(Item):

@@ -27,6 +27,16 @@ def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool]
 
 
 def merge_records(*args: Record) -> Record:
+	"""Merges all the records passed, tournament-wise.
+
+	Combines multiple records by their tournaments, creating one new `Record` object containing all the tournaments in
+	the original records. Duplicate tournaments are identified by `Tournament.tournament_name`, meaning the same name
+	will never show up twice in the record.
+
+	If a tournament is in multiple records only the version of the tournament in the record that is passed first will
+	be preserved (so if both the first and the second argument define a tournament called "WUDC 2022" only the one in
+	the first argument will be used). Note that this could lead to the more complete record being discarded.
+	"""
 	if not args:
 		raise TypeError("merge_records() needs at least one argument but 0 were provided.")
 

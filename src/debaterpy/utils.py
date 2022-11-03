@@ -26,6 +26,21 @@ def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool]
 				yield round
 
 
+def merge_records(*args: Record) -> Record:
+	if not args:
+		raise TypeError("merge_records() needs at least one argument but 0 were provided.")
+
+	working_record = args[0]
+	attended_tournament_names = [tournament.tournament_name for tournament in working_record.tournaments]
+	for record in args:
+		for tournament in record.tournaments:
+			if tournament.tournament_name not in attended_tournament_names:
+				working_record.tournaments.append(tournament)
+				attended_tournament_names.append(tournament.tournament_name)
+
+	return working_record
+
+
 def generate_csv(record: Record, target: io.TextIOWrapper):
 	"""Writes a CSV representation of `record` to `target`."""
 	writer = csv.writer(target, delimiter=",")

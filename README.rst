@@ -6,6 +6,12 @@ A simple library to keep track of your progress and history in competitive debat
 The library is largely meant to interface with `DebaterJSON <https://github.com/daankoning/DebaterJSON>`_ and as such
 provides a significant number of functions and classes to analyse and manipulate these records.
 
+Installation
+************
+Because the package is available on PyPi simply run the following command to install it: ::
+
+    pip install debaterpy
+
 Usage
 *****
 Instantiating objects is really simple, assuming you have a valid DebaterJSON string loaded in ``data`` it only takes two

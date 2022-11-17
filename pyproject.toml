@@ -8,7 +8,7 @@ authors = [
   { name="Daan Olivier Koning", email="daanolivierkoning@gmail.com" },
 ]
 description = "A simple library to keep track of your progress and history in competitive debating."
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",

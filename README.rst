@@ -31,3 +31,7 @@ in order to get a speaker's average speaks in rounds where their team won, do:
 >>> winning_speaks = [round.speeches[0].speak for round in winning_rounds]
 >>> sum(winning_speaks)/len(winning_speaks)
 78.88888888888889
+
+Documentation
+*************
+The documentation lives in the ``docs`` directory as well as on `ReadTheDocs <https://debaterpy.readthedocs.io/en/latest/>`_.

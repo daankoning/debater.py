@@ -54,7 +54,7 @@ def merge_records(*args: Record) -> Record:
 def generate_csv(record: Record, target: io.TextIOWrapper):
 	"""Writes a CSV representation of `record` to `target`."""
 	writer = csv.writer(target, delimiter=",")
-	writer.writerow(["tournament_name", "format", "broke", "break_categories", "round_name", "outround",
+	writer.writerow(["tournament_name", "format", "broke", "break_categories", "name", "outround",
 					 "outround_category", "prepped", "date", "date_string", "topics", "motion", "infoslide", "side", "half",
 					 "teammates", "speech", "result", "speak"])
 	for tournament in record.tournaments:
@@ -65,7 +65,7 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
 					tournament.format,
 					tournament.broke,
 					tournament.break_categories,
-					round.round_name,
+					round.name,
 					round.outround,
 					round.outround_category,
 					round.prepped,
@@ -77,7 +77,7 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
 					round.side,
 					round.half,
 					round.teammates,
-					speech.number,
+					speech.speech,
 					round.result,
 					speech.speak
 				]))

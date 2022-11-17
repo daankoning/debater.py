@@ -84,7 +84,7 @@ class Tournament(Item):
 @dataclass(unsafe_hash=True)
 class Round(Item):
 	"""A single round that is associated with a tournament."""
-	round_name: Optional[str] = None
+	name: Optional[str] = None
 	"""The name of the round (e.g. 'round 1' or 'grand finals')."""
 	outround: Optional[bool] = None
 	"""If this round was an outround."""
@@ -122,7 +122,7 @@ class Round(Item):
 			speeches = [Speech.from_dict(speech) for speech in data.get("speeches", [])]
 
 		return cls(
-			round_name=data.get("name"),
+			name=data.get("name"),
 			outround=data.get("outround"),
 			outround_category=data.get("outround_category"),
 			prepped=data.get("prepped"),
@@ -141,8 +141,8 @@ class Round(Item):
 @dataclass(unsafe_hash=True)
 class Speech(Item):
 	"""A speech in a round."""
-	number: Optional[int] = None
-	"""The number of this speech. Only counts speeches on the debater's side (e.g. in BP an opposition whip would be
+	speech: Optional[int] = None
+	"""The speech of this speech. Only counts speeches on the debater's side (e.g. in BP an opposition whip would be
 	 speech 4, not 8)."""
 	speak: Optional[float] = None
 	"""The speak this speech received."""
@@ -150,6 +150,6 @@ class Speech(Item):
 	@classmethod
 	def from_dict(cls, data: dict) -> Speech:
 		return cls(
-			number=data.get("speech"),
+			speech=data.get("speech"),
 			speak=data.get("speak")
 		)

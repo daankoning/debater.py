@@ -31,12 +31,12 @@ class Item:
 
 	@classmethod
 	def from_json(cls, data: str) -> Item:
-		"""Instantiates a new object based on the data contained in the json string `data`."""
+		"""Instantiates a new object based on the data contained in the json string ``data``."""
 		return cls.from_dict(json.loads(data))
 
 	@classmethod
 	def from_dict(self, data: dict) -> Item:
-		"""instantiate a new object based on the dictionary `data`. """
+		"""instantiate a new object based on the dictionary ``data``. """
 		raise NotImplementedError
 
 

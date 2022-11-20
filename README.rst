@@ -33,7 +33,7 @@ python dataclasses and as such offer fine programmatic control.
 Having a ``Record`` object in memory it is incredibly simple to do even relatively complex manipulations. For example,
 in order to get a speaker's average speaks in rounds where their team won, do:
 
->>> winning_rounds = debaterpy.get_all_rounds(record, lambda x, y: y.result == 3)
+>>> winning_rounds = debaterpy.get_all_rounds(record, function=lambda x, y: y.result == 3)
 >>> winning_speaks = [round.speeches[0].speak for round in winning_rounds]
 >>> sum(winning_speaks)/len(winning_speaks)
 78.88888888888889

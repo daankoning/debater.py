@@ -6,7 +6,7 @@ debater.py
 .. image:: https://badgen.net/github/license/daankoning/debater.py?
     :target: https://github.com/daankoning/debater.py/blob/main/LICENSE
 
-.. class:: center
+
 A simple library to keep track of your progress and history in competitive debating.
 
 The library is largely meant to interface with `DebaterJSON <https://github.com/daankoning/DebaterJSON>`_ and as such

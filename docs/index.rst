@@ -10,6 +10,7 @@
 Indices and tables
 ==================
 
+* :ref:`debaterpy`
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

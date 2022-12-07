@@ -136,7 +136,8 @@ class Round(Item):
 			half=data.get("half"),
 			teammates=data.get("teammates"),
 			speeches=speeches,
-			result=data.get("result")
+			result=data.get("result"),
+			advanced=data.get("advanced")
 		)
 
 

@@ -56,7 +56,7 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
 	writer = csv.writer(target, delimiter=",")
 	writer.writerow(["tournament_name", "format", "broke", "break_categories", "name", "outround",
 					 "outround_category", "prepped", "date", "date_string", "topics", "motion", "infoslide", "side", "half",
-					 "teammates", "speech", "result", "speak"])
+					 "teammates", "speech", "result", "speak", "advanced"])
 	for tournament in record.tournaments:
 		for round in tournament.rounds:
 			for speech in round.speeches:
@@ -79,5 +79,6 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
 					round.teammates,
 					speech.speech,
 					round.result,
-					speech.speak
+					speech.speak,
+					round.advanced
 				]))

@@ -113,6 +113,8 @@ class Round(Item):
 	"""How many points the debater's team got from this round. In two-team formats, a 1 or 0 simply mean a win or loss,
 	 respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a 
 	 certain result yields."""
+	advanced: Optional[bool] = None
+	"""If the speaker advanced to the next phase of the tournament (if this round is an outround)."""
 
 	@classmethod
 	def from_dict(cls, data: dict) -> Round:
@@ -134,7 +136,8 @@ class Round(Item):
 			half=data.get("half"),
 			teammates=data.get("teammates"),
 			speeches=speeches,
-			result=data.get("result")
+			result=data.get("result"),
+			advanced=data.get("advanced")
 		)
 
 

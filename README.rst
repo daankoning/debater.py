@@ -5,6 +5,10 @@ debater.py
 
 .. image:: https://badgen.net/github/license/daankoning/debater.py?
     :target: https://github.com/daankoning/debater.py/blob/main/LICENSE
+    
+.. image:: https://readthedocs.org/projects/debaterpy/badge/?version=latest
+    :target: https://debaterpy.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 
 A simple library to keep track of your progress and history in competitive debating.

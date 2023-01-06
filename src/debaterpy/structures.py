@@ -89,7 +89,7 @@ class Round(Item):
     outround: Optional[bool] = None
     """If this round was an outround."""
     outround_category: Optional[str] = None
-    """What speaker category this outround belongs to (e.g. open or ESL). Should only be used if the round is an 
+    """What speaker category this outround belongs to (e.g. open or ESL). Should only be used if the round is an
     outround."""
     prepped: Optional[bool] = None
     """Whether the round was a prepped round (if applicable)."""
@@ -111,7 +111,7 @@ class Round(Item):
     """The speeches the speaker gave in this round."""
     result: Optional[int] = None
     """How many points the debater's team got from this round. In two-team formats, a 1 or 0 simply mean a win or loss,
-    respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a 
+    respectively. For more complex formats, such as BP, please refer to the format's manuals for how many points a
     certain result yields."""
     advanced: Optional[bool] = None
     """If the speaker advanced to the next phase of the tournament (if this round is an outround)."""

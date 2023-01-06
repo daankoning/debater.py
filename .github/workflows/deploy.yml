@@ -1,0 +1,32 @@
+name: Deploy latest version to PyPi
+
+on:
+  push:
+    branches:
+      - stable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install build twine
+
+    - name: Build distribution archives
+      run: |
+        python -m build
+
+    - name: Deploy to PyPi
+      run: |
+        twine upload -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }} dist/*

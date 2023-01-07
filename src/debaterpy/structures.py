@@ -2,7 +2,7 @@
 DebaterJSON."""
 from __future__ import annotations
 import json
-from typing import Optional
+from typing import Optional, Self
 from datetime import datetime, date
 from dataclasses import dataclass
 
@@ -30,12 +30,12 @@ class Item:
         return json.dumps(dict(self))
 
     @classmethod
-    def from_json(cls, data: str) -> Item:
+    def from_json(cls, data: str) -> Self:
         """Instantiates a new object based on the data contained in the json string ``data``."""
         return cls.from_dict(json.loads(data))
 
     @classmethod
-    def from_dict(self, data: dict) -> Item:
+    def from_dict(self, data: dict) -> Self:
         """instantiate a new object based on the dictionary ``data``. """
         raise NotImplementedError
 
@@ -49,7 +49,7 @@ class Record(Item):
     """The name of the speaker in this account."""
 
     @classmethod
-    def from_dict(cls, data: dict) -> Record:
+    def from_dict(cls, data: dict) -> Self:
         return cls(
             tournaments=[Tournament.from_dict(tournament) for tournament in data["tournaments"]],
             speaker_name=data.get("speaker_name")
@@ -71,7 +71,7 @@ class Tournament(Item):
     """All the rounds the debater participated in in this tournament."""
 
     @classmethod
-    def from_dict(cls, data: dict) -> Tournament:
+    def from_dict(cls, data: dict) -> Self:
         return cls(
             tournament_name=data["tournament_name"],
             format=data.get("format"),
@@ -117,7 +117,7 @@ class Round(Item):
     """If the speaker advanced to the next phase of the tournament (if this round is an outround)."""
 
     @classmethod
-    def from_dict(cls, data: dict) -> Round:
+    def from_dict(cls, data: dict) -> Self:
         if "speech" in data.keys() or "speak" in data.keys():  # neccesary due to these attributes' deprecation
             speeches = [Speech(data.get("speech"), data.get("speak"))]
         else:
@@ -151,7 +151,7 @@ class Speech(Item):
     """The speak this speech received."""
 
     @classmethod
-    def from_dict(cls, data: dict) -> Speech:
+    def from_dict(cls, data: dict) -> Self:
         return cls(
             speech=data.get("speech"),
             speak=data.get("speak")

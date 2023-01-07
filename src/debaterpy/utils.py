@@ -27,6 +27,25 @@ def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool]
                 yield round
 
 
+def get_all_speeches(record: Record, function: Callable[[Tournament, Round, Speech], bool] = lambda x, y, z: True)\
+        -> Generator[Speech, None, None]:
+    """Gets all speeches in ``record`` that satisfy ``function``.
+
+    Functionally very similar to ``get_all_rounds``. The ``function`` argument works to allow a filter to be applied to
+    the speeches that are included.
+
+    Args:
+        record: An instance of ``structures.Record`` from which the speeches will be extracted.
+        function:  A callable returning a boolean which needs to be true for a record to be included. Receives instances
+            of ``structures.Tournament``, ``structures.Round``, and ``structures.Speech`` as arguments. Will default to
+            including all speeches."""
+    for tournament in record.tournaments:
+        for round in tournament.rounds:
+            for speech in round.speeches:
+                if function(tournament, round, speech):
+                    yield speech
+
+
 def merge_records(*args: Record) -> Record:
     """Merges all the records passed, tournament-wise.
 

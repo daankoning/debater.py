@@ -35,7 +35,7 @@ class Item:
         return cls.from_dict(json.loads(data))
 
     @classmethod
-    def from_dict(self, data: dict) -> Item:
+    def from_dict(cls, data: dict) -> Item:
         """instantiate a new object based on the dictionary ``data``. """
         raise NotImplementedError
 
@@ -77,7 +77,7 @@ class Tournament(Item):
             format=data.get("format"),
             broke=data.get("broke"),
             break_categories=data.get("break_categories"),
-            rounds=[Round.from_dict(round) for round in data.get("rounds", [])]
+            rounds=[Round.from_dict(debate) for debate in data.get("rounds", [])]
         )
 
 

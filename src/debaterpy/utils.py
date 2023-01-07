@@ -22,9 +22,9 @@ def get_all_rounds(record: Record, function: Callable[[Tournament, Round], bool]
         function:  A callable returning a boolean which needs to be true for a record to be included. Receives instances
             of ``structures.Tournament`` and ``structures.Round``as arguments. Will default to including all rounds."""
     for tournament in record.tournaments:
-        for round in tournament.rounds:
-            if function(tournament, round):
-                yield round
+        for debate in tournament.rounds:
+            if function(tournament, debate):
+                yield debate
 
 
 def get_all_speeches(record: Record, function: Callable[[Tournament, Round, Speech], bool] = lambda x, y, z: True)\
@@ -40,9 +40,9 @@ def get_all_speeches(record: Record, function: Callable[[Tournament, Round, Spee
             of ``structures.Tournament``, ``structures.Round``, and ``structures.Speech`` as arguments. Will default to
             including all speeches."""
     for tournament in record.tournaments:
-        for round in tournament.rounds:
-            for speech in round.speeches:
-                if function(tournament, round, speech):
+        for debate in tournament.rounds:
+            for speech in debate.speeches:
+                if function(tournament, debate, speech):
                     yield speech
 
 
@@ -78,27 +78,27 @@ def generate_csv(record: Record, target: io.TextIOWrapper):
                      "outround_category", "prepped", "date", "date_string", "topics", "motion", "infoslide", "side",
                      "half", "teammates", "speech", "result", "speak", "advanced"])
     for tournament in record.tournaments:
-        for round in tournament.rounds:
-            for speech in round.speeches:
+        for debate in tournament.rounds:
+            for speech in debate.speeches:
                 writer.writerow(map(str, [
                     tournament.tournament_name,
                     tournament.format,
                     tournament.broke,
                     tournament.break_categories,
-                    round.name,
-                    round.outround,
-                    round.outround_category,
-                    round.prepped,
-                    str(round.date.timestamp()),
-                    round.date.strftime("%d-%m-%Y"),
-                    round.topics,
-                    round.motion,
-                    round.infoslide,
-                    round.side,
-                    round.half,
-                    round.teammates,
+                    debate.name,
+                    debate.outround,
+                    debate.outround_category,
+                    debate.prepped,
+                    str(debate.date.timestamp()),
+                    debate.date.strftime("%d-%m-%Y"),
+                    debate.topics,
+                    debate.motion,
+                    debate.infoslide,
+                    debate.side,
+                    debate.half,
+                    debate.teammates,
                     speech.speech,
-                    round.result,
+                    debate.result,
                     speech.speak,
-                    round.advanced
+                    debate.advanced
                 ]))
